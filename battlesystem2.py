@@ -282,11 +282,22 @@ while combatactive == True:
 
 
 """
-It's a good practice to wrap all (non-class, non-function, etc) code in a main() function. Then the only code in your script will be `main()`.
+It's a good practice to wrap all (non-class, non-function, etc) code in a main() function. Then the only code in your
+script will be `main()`.
 
 A couple of useful tools if i haven't mentioned them already:
-- flake8 (pip3 install flake8), then run `flake8 battlesystem2.py`. it gives you formatting feedback (whitespace etc) and can catch some other errors
-- IPython (pip3 install IPython). Then in your code you can put a breakpoint like `from IPython import embed; embed()` and it will give you a really nice interactive shell for debugging
+- flake8 (pip3 install flake8), then run `flake8 battlesystem2.py`. it gives you formatting feedback (whitespace etc)
+and can catch some other errors
+- IPython (pip3 install IPython). Then in your code you can put a breakpoint like `from IPython import embed; embed()`
+and it will give you a really nice interactive shell for debugging.
+
+Another tip for printing... instead of doing this:
+    print(goblinthree.name + " hits for " + str(goblinthree.attack) + " damage.")
+Consider using .format() instead:
+    print("{name} hits for {damage} damage".format(name=goblinthree.name, damage=goblinthree.attack))
+    print("{} hits for {} damage".format(goblinthree.name, goblinthree.attack))
+
+Using .format() takes care of string conversion so you don't have to do `str(somenumber)`.
 
 """
 
