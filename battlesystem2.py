@@ -30,7 +30,7 @@ class Player:
             self.health = player.maxhealth
         self.healed = True
         return player.health
-    
+
 name = input("What is your charaters name? ")
 
 roll = Dice()
@@ -112,27 +112,27 @@ healcriteria = True
 
 #Start of the combat loop
 while combatactive == True:
-    print("Current HP: " + str(player.health) + "/" + str(player.maxhealth)) 
+    print("Current HP: " + str(player.health) + "/" + str(player.maxhealth))
     while player.healed == False and healcriteria == True:
         heal = input("Would yee like to heal? Caution: may only be used once during combat. y/n :")
         if heal == "y":
             health = player.health
             player.heal
             player.healed = True
-            print(player.name + " healed for " + str(player.heal) + "HP for a total of " + str(player.health + player.heal) + "HP.")                          
+            print(player.name + " healed for " + str(player.heal) + "HP for a total of " + str(player.health + player.heal) + "HP.")
         elif heal == "n":
             player.healed = False
             break
         else:
             print("Invalid syntax. y/n only.")
             healcriteria = True
-    
-#Prints monsters to attack   
+
+#Prints monsters to attack
     if goblinone.health > 0:
         print("(1) for " + goblinone.name + " " +str(goblinone.health) + "/" + str(goblinone.maxhealth) + "HP")
     else:
         print(goblinone.name + " is dead.")
-        
+
     if goblintwo.health > 0:
         print("(2) for " + goblintwo.name + " " +str(goblintwo.health) + "/" + str(goblintwo.maxhealth) + "HP")
     else:
@@ -147,8 +147,8 @@ while combatactive == True:
         print("(4) for " + goblinfour.name + " " +str(goblinfour.health) + "/" + str(goblinfour.maxhealth) + "HP")
     else:
         print(goblinfour.name + " is dead.")
-        
-#Player attack sequence              
+
+#Player attack sequence
     attack = input("Which foul beast shall yee attack? ")
     attackable = ['1','2','3','4']
     attackcomplete = False
@@ -163,8 +163,8 @@ while combatactive == True:
             print("You've attacked a corpse!")
             attackcomplete = True
             break
-        
-        
+
+
         if attack == '2' and goblintwo.health > 0:
             smash = player.attack + roll.d20()
             goblintwo.health = goblintwo.health - smash
@@ -175,8 +175,8 @@ while combatactive == True:
             print("You've attacked a corpse!")
             attackcomplete = True
             break
-        
-            
+
+
         if attack == '3' and goblinthree.health > 0:
             smash = player.attack + roll.d20()
             goblinthree.health = goblinthree.health - smash
@@ -187,8 +187,8 @@ while combatactive == True:
             print("You've attacked a corpse!")
             attackcomplete = True
             break
-        
-        
+
+
         if attack == '4' and goblinfour.health > 0:
             smash = player.attack + roll.d20()
             goblinfour.health = goblinfour.health - smash
@@ -199,17 +199,17 @@ while combatactive == True:
             print("You've attacked a corpse!")
             attackcomplete = True
             break
-        
-        
+
+
         if attack not in attackable:
             print("invalid syntax. Please type 1, 2, 3 or 4.")
             attackcomplete = False
 
-    attackcomplete = False         
-        
-        
-# Goblin attack sequence         
-    if goblinone.health > 0:        
+    attackcomplete = False
+
+
+# Goblin attack sequence
+    if goblinone.health > 0:
         print(goblinone.name + " attacks!")
         x = roll.d20()
         if x > 10:
@@ -217,7 +217,7 @@ while combatactive == True:
             player.health = player.health - goblinone.attack
         else:
             print(goblinone.name + " misses.")
-            
+
     if goblintwo.health > 0:
         print(goblintwo.name + " attacks!")
         x = roll.d20()
@@ -226,7 +226,7 @@ while combatactive == True:
             player.health = player.health - goblintwo.attack
         else:
             print(goblintwo.name + " misses.")
-            
+
     if goblinthree.health > 0:
         print(goblinthree.name + " attacks!")
         x = roll.d20()
@@ -235,7 +235,7 @@ while combatactive == True:
             player.health = player.health - goblinthree.attack
         else:
             print(goblinthree.name + " misses.")
-      
+
     if goblinfour.health > 0:
         print(goblinfour.name + " attacks!")
         x = roll.d20()
@@ -244,7 +244,7 @@ while combatactive == True:
             player.health = player.health - goblinfour.attack
         else:
             print(goblinfour.name + " misses.")
-#Sets combat active to false if all monsters are dead            
+#Sets combat active to false if all monsters are dead
     if goblinone.health <= 0 and goblintwo.health <= 0 and goblinthree.health <= 0 and goblinfour.health <= 0:
         combatactive = False
         print("YOU BEAT THE GOBLINS, FAM!")
@@ -256,5 +256,5 @@ while combatactive == True:
         combatactive = False
 
 
-      
+
 
