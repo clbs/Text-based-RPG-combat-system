@@ -18,6 +18,17 @@ class Player:
         self.health = 100
         self.attack = 15
         self.heal = 50
+        """
+        ^ here you have defined a `heal` attribute, but further below you have also defined a `heal` method.
+        The attribute overwrites the method, so `self.heal()` won't work.
+
+        You should instead do something like:
+            def __init__(self, name, health, attack, heal, maxhealth, healed, enemy):                                                  [...]
+                [...]
+                self.heal_amount = 50
+        (`heal` is a verb, that's a good choice for method names, but attributes should be nouns)
+        that way it's easier to remember whether you need to call it as a method, i.e. with parens, e.g. `player.heal()`
+        """
         self.maxhealth = 100
         self.healed = False
         self.enemy = False
@@ -35,6 +46,18 @@ name = input("What is your charaters name? ")
 
 roll = Dice()
 
+"""
+I suggest using keyword arguments instead of arguments for readability, e.g.:
+    player = Player(
+        name=name,
+        health=100,
+        attack=15,
+        heal_amount=50,
+        maxhealth=100,
+        healed=False,
+        enemy=False
+    )
+"""
 player = Player(
     name,
     100,
@@ -55,6 +78,7 @@ goblinone = Player(
     True
 )
 
+# Lines like the ones below shouldn't be necessary; the constructor (__init__) should take care of setting all of this.
 goblinone.health = 25
 goblinone.attack = 20
 goblinone.maxhealth = 25
@@ -100,6 +124,11 @@ goblinfour = Player(
 goblinfour.health = 100
 goblinfour.attack = 8
 goblinfour.maxhealth = 100
+
+"""
+Above, you've defined four goblins one by one.
+For your next iteration, maybe you could ask the player how many goblins they want to fight ;)
+"""
 
 #Greets player
 print("Nice to meet you, " + player.name + ".")
@@ -149,7 +178,7 @@ while combatactive == True:
         print(goblinfour.name + " is dead.")
 
 #Player attack sequence
-    attack = input("Which foul beast shall yee attack? ")
+    attack = input("Which foul beast shall yee attack? ")  # input validation here ;)
     attackable = ['1','2','3','4']
     attackcomplete = False
     while attackcomplete == False:
@@ -158,12 +187,11 @@ while combatactive == True:
             goblinone.health = goblinone.health - smash
             print("Youve attacked " + goblinone.name + " for " + str(smash) + "HP.")
             attackcomplete = True
-            break
+            break  # the previous line ends the while loop, so you only need one or the other. (I recommend keeping only `break` for readability)
         elif attack == '1' and goblinone.health <= 0:
             print("You've attacked a corpse!")
             attackcomplete = True
             break
-
 
         if attack == '2' and goblintwo.health > 0:
             smash = player.attack + roll.d20()
@@ -176,7 +204,6 @@ while combatactive == True:
             attackcomplete = True
             break
 
-
         if attack == '3' and goblinthree.health > 0:
             smash = player.attack + roll.d20()
             goblinthree.health = goblinthree.health - smash
@@ -188,7 +215,6 @@ while combatactive == True:
             attackcomplete = True
             break
 
-
         if attack == '4' and goblinfour.health > 0:
             smash = player.attack + roll.d20()
             goblinfour.health = goblinfour.health - smash
@@ -199,7 +225,6 @@ while combatactive == True:
             print("You've attacked a corpse!")
             attackcomplete = True
             break
-
 
         if attack not in attackable:
             print("invalid syntax. Please type 1, 2, 3 or 4.")
@@ -256,5 +281,12 @@ while combatactive == True:
         combatactive = False
 
 
+"""
+It's a good practice to wrap all (non-class, non-function, etc) code in a main() function. Then the only code in your script will be `main()`.
 
+A couple of useful tools if i haven't mentioned them already:
+- flake8 (pip3 install flake8), then run `flake8 battlesystem2.py`. it gives you formatting feedback (whitespace etc) and can catch some other errors
+- IPython (pip3 install IPython). Then in your code you can put a breakpoint like `from IPython import embed; embed()` and it will give you a really nice interactive shell for debugging
+
+"""
 
